@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "tsc && concurrently --kill-others -c red,green,blue npm:TSC npm:RUN npm:API",
+    "RUN": "nodemon dist/index.js",
+    "TSC": "tsc --watch",
+    "API": "docker run --rm -t -p 12111-12112:12111-12112 stripe/stripe-mock:latest"
+  },
+  "dependencies": {
+    "@whatwg-node/fetch": "^0.9.12",
+    "grafast": "^0.0.1-beta.7",
+    "graphile-config": "^0.0.1-beta.2",
+    "graphql": "^16.8.0",
+    "stripe": "^13.5.0"
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.2",
+    "@types/node": "^20.5.9",
+    "concurrently": "^8.2.1",
+    "nodemon": "^3.0.1",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
+  }
+}
