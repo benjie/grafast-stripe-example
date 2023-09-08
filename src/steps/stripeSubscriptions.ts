@@ -1,12 +1,16 @@
 import {
+  AccessStep,
   ExecutableStep,
   GrafastResultsList,
   GrafastValuesList,
   PromiseOrDirect,
+  StepOptimizeOptions,
   access,
+  arraysMatch,
 } from "grafast";
 import { Stripe } from "stripe";
 import { stripe } from "../stripeInstance.js";
+import { StripeCustomerStep } from "./stripeCustomer.js";
 
 export class StripeSubscriptionsStep extends ExecutableStep<Stripe.ApiList<Stripe.Subscription> | null> {
   private paramSpecs: [
@@ -33,6 +37,25 @@ export class StripeSubscriptionsStep extends ExecutableStep<Stripe.ApiList<Strip
 
   items() {
     return access(this, "data");
+  }
+
+  optimize(): ExecutableStep {
+    // If we have one parameter, 'customer'
+    if (this.paramSpecs.length === 1 && this.paramSpecs[0][0] === "customer") {
+      const depId = this.paramSpecs[0][1];
+      // and if the value of that is an access step for key 'id'
+      const dep = this.getDep(depId);
+      if (dep instanceof AccessStep && arraysMatch(dep.path, ["id"])) {
+        // and the access is from a StripeCustomer.
+        const grandparent = dep.getDep(0);
+        if (grandparent instanceof StripeCustomerStep) {
+          // then we can ask that StripeCustomer to fetch the subscriptions, and
+          // replace ourself.
+          return grandparent.expand("subscriptions");
+        }
+      }
+    }
+    return this;
   }
 
   execute(
