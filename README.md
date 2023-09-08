@@ -61,8 +61,6 @@ flowchart TD
     __Value3 --> Access9
     StripeCustomer10[["StripeCustomer[10∈0]"]]:::plan
     Access9 --> StripeCustomer10
-    __Value0["__Value[0∈0]"]:::plan
-    __Value5["__Value[5∈0]<br />ᐸrootValueᐳ"]:::plan
     Access11{{"Access[11∈2]<br />ᐸ10.idᐳ"}}:::plan
     StripeCustomer10 --> Access11
     StripeSubscriptions15[["StripeSubscriptions[15∈2]"]]:::plan
@@ -75,7 +73,7 @@ flowchart TD
     %% define steps
 
     classDef bucket0 stroke:#696969
-    class Bucket0,__Value0,__Value3,__Value5,Access7,Access9,StripeCustomer10 bucket0
+    class Bucket0,__Value3,Access7,Access9,StripeCustomer10 bucket0
     classDef bucket1 stroke:#00bfff
     class Bucket1 bucket1
     classDef bucket2 stroke:#7f007f
@@ -127,8 +125,6 @@ flowchart TD
     __Value3 --> Access9
     StripeCustomer10[["StripeCustomer[10∈0]<br />ᐸexpand=subscriptionsᐳ"]]:::plan
     Access9 --> StripeCustomer10
-    __Value0["__Value[0∈0]"]:::plan
-    __Value5["__Value[5∈0]<br />ᐸrootValueᐳ"]:::plan
     Access22{{"Access[22∈2]<br />ᐸ10.subsc...ons.dataᐳ"}}:::plan
     StripeCustomer10 --> Access22
     __Item17[/"__Item[17∈3]<br />ᐸ22ᐳ"\]:::itemplan
@@ -137,7 +133,7 @@ flowchart TD
     %% define steps
 
     classDef bucket0 stroke:#696969
-    class Bucket0,__Value0,__Value3,__Value5,Access7,Access9,StripeCustomer10 bucket0
+    class Bucket0,__Value3,Access7,Access9,StripeCustomer10 bucket0
     classDef bucket1 stroke:#00bfff
     class Bucket1 bucket1
     classDef bucket2 stroke:#7f007f
