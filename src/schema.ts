@@ -1,5 +1,6 @@
 import { context, makeGrafastSchema, AccessStep } from "grafast";
 import { stripeCustomer, StripeCustomerStep } from "./steps/stripeCustomer";
+import { stripeSubscriptions } from "./steps/stripeSubscriptions";
 
 declare global {
   namespace Grafast {
@@ -63,6 +64,11 @@ export const schema = makeGrafastSchema({
     StripeCustomer: {
       invoicePrefix($customer: StripeCustomerStep) {
         return $customer.get("invoice_prefix");
+      },
+      subscriptions($customer: StripeCustomerStep) {
+        return stripeSubscriptions({
+          customer: $customer.get("id"),
+        }).items();
       },
     },
   },
